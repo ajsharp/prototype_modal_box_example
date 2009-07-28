@@ -1,39 +1,59 @@
 <html>
     <head>
 	<title>Test Page</title>
-	<script type="text/javascript" src="prototype.js"></script>
-	<script type="text/javascript" src="effects.js"></script>
+	<script type="text/javascript" src="js/prototype-1.6.0.3.js"></script>
+	<script type="text/javascript" src="js/livepipe/livepipe.js"></script>
+	<script type="text/javascript" src="js/livepipe/window.js"></script>
         
-	<script type="text/javascript">
-	function addObservers() {
-            // hide the spinner box
-            $('hidden_message').hide();
+<script type="text/javascript">
 
-            // "attach" the following behavior to the submit event of the form with id="my_form"
-            $('my_form').observe('submit', function(event) {
-               $('hidden_message').show(); 
-               event.preventDefault();
-            });
-	}
-	Event.observe(window, 'dom:loaded', addObservers);
+function addObservers() {
+  
+  // hide the spinner box
+  // var spinner_box = $('modal');
+  // spinner_box.hide();
+  
+  var modal_window = new Control.Modal($('modal'), {
+    closeOnClick : false
+  });
+  
 
-        </script>
+  // "attach" the following behavior to the submit event of the form with id="my_form"
+  $('my_form').observe('submit', function(event) {
+     // $('modal').show(); 
+     // $('modal').fire('click');
+     event.preventDefault();
+  });
+}
 
+// Event.observe(window, 'dom:loaded', addObservers);
+document.observe('dom:loaded', addObservers);
+
+</script>
 <style>
+#control_overlay {
+  background: #000;
+}
 
+#hidden_message {
+  background: #fff;
+}
+
+.modal {
+  background: #fff;
+}
 </style>
-	</head>
-	
-	<body>
+</head>
+<body>
 
-            <form id="my_form" action="#">
-                <input id="name" name="name" type="text" />
+    <form id="my_form" action="#">
+        <input id="name" name="name" type="text" />
 
-                <input id="commit" name="commit" type="submit" />
-            </form>
+        <input id="commit" name="commit" type="submit" />
+    </form>
 
-            <div id="hidden_message">
-                Spinner here.
-            </div>
-	</body>
+    <a id="modal" href="#">
+        Spinner here.
+    </a>
+</body>
 </html>
