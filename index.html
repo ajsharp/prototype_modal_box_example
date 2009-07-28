@@ -1,0 +1,39 @@
+<html>
+    <head>
+	<title>Test Page</title>
+	<script type="text/javascript" src="prototype.js"></script>
+	<script type="text/javascript" src="effects.js"></script>
+        
+	<script type="text/javascript">
+	function addObservers() {
+            // hide the spinner box
+            $('hidden_message').hide();
+
+            // "attach" the following behavior to the submit event of the form with id="my_form"
+            $('my_form').observe('submit', function(event) {
+               $('hidden_message').show(); 
+               event.preventDefault();
+            });
+	}
+	Event.observe(window, 'dom:loaded', addObservers);
+
+        </script>
+
+<style>
+
+</style>
+	</head>
+	
+	<body>
+
+            <form id="my_form" action="#">
+                <input id="name" name="name" type="text" />
+
+                <input id="commit" name="commit" type="submit" />
+            </form>
+
+            <div id="hidden_message">
+                Spinner here.
+            </div>
+	</body>
+</html>
