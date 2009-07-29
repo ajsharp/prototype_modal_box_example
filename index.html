@@ -1,4 +1,6 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
 	<title>Test Page</title>
 	<script type="text/javascript" src="js/prototype-1.6.0.3.js"></script>
@@ -7,53 +9,47 @@
         
 <script type="text/javascript">
 
-function addObservers() {
+  function addObservers() {
+    // "attach" the following behavior to the submit event of the form with id="my_form"
+    $('my_form').observe('submit', function(event) {
+      // when the form is submitted create a new Modal object
+      var modal_window = new Control.Modal($(document.body).down('[id=modal]'), {
+        closeOnClick : false
+      });
+      
+      // Now open that modal object, which will in turn display the contents of the #hidden div
+      modal_window.open();
+    });
   
-  // hide the spinner box
-  // var spinner_box = $('modal');
-  // spinner_box.hide();
-  
-  var modal_window = new Control.Modal($('modal'), {
-    closeOnClick : false
-  });
-  
+  } // end of function
 
-  // "attach" the following behavior to the submit event of the form with id="my_form"
-  $('my_form').observe('submit', function(event) {
-     // $('modal').show(); 
-     // $('modal').fire('click');
-     event.preventDefault();
-  });
-}
-
-// Event.observe(window, 'dom:loaded', addObservers);
-document.observe('dom:loaded', addObservers);
+  document.observe('dom:loaded', addObservers);
 
 </script>
-<style>
+
+<style type="text/css">
 #control_overlay {
   background: #000;
-}
-
-#hidden_message {
-  background: #fff;
 }
 
 .modal {
   background: #fff;
 }
+
+#hidden {
+  background: #fff;
+}
 </style>
 </head>
 <body>
-
+  
+  <div id="hidden" style="display: none;">This was totally hidden before</div>
+  
     <form id="my_form" action="#">
         <input id="name" name="name" type="text" />
 
         <input id="commit" name="commit" type="submit" />
     </form>
-
-    <a id="modal" href="#">
-        Spinner here.
-    </a>
+    <a href="#hidden" id="modal"></a>
 </body>
 </html>
